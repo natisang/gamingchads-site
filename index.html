@@ -409,6 +409,91 @@
       margin-top: 8px;
     }
 
+
+    .game-card.wide { margin-bottom: 16px; }
+    .shot-grid {
+      display: grid;
+      gap: 2px;
+      background: #050608;
+    }
+    .shot-grid figure { margin: 0; background: #050608; }
+    .shot-grid img, .shot-grid picture, .shot-grid picture img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .shot-grid-gladiator {
+      grid-template-columns: 1fr 1fr;
+    }
+    .shot-grid-gladiator .shot-hero {
+      grid-column: 1 / -1;
+    }
+    @media (max-width: 560px) {
+      .shot-grid-gladiator { grid-template-columns: 1fr; }
+    }
+
+    .phone-gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      padding: 18px 18px 10px;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(126,176,255,.12), transparent 55%),
+        #050608;
+      align-items: center;
+    }
+    .phone-gallery figure {
+      margin: 0;
+      background: #0a0c12;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+    .phone-gallery .phone-frame {
+      background: #050608;
+    }
+    .phone-gallery picture, .phone-gallery img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: contain;
+    }
+    .phone-gallery figcaption {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: center;
+      padding: 8px 8px 10px;
+    }
+    @media (max-width: 700px) {
+      .phone-gallery {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-padding-inline: 16px;
+        gap: 12px;
+        padding: 16px;
+        align-items: stretch;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        scrollbar-color: var(--line) transparent;
+      }
+      .phone-gallery figure {
+        flex: 0 0 72%;
+        scroll-snap-align: start;
+      }
+      .phone-gallery .phone-frame {
+        flex: 1;
+        display: flex;
+        align-items: center;
+      }
+    }
+
     .teasers {
       display: grid;
       gap: 16px;
@@ -675,44 +760,102 @@
           </div>
         </article>
 
-        <article class="game-card" style="margin-bottom:16px">
-          <div class="photo-stack">
-            <img
-              src="assets/gladiator-clean-01-arena-topdown.jpg"
-              width="1152"
-              height="864"
-              alt="Gladiator Chads paper prototype arena from above, full Colosseum visible"
-            />
-            <img
-              src="assets/gladiator-clean-06-beast-fight.jpg"
-              width="1152"
-              height="864"
-              alt="Gladiator minis facing a giant beast stand-in"
-            />
+        <article class="game-card wide">
+          <div class="shot-grid shot-grid-gladiator">
+            <figure class="shot-hero">
+              <picture>
+                <source type="image/webp" srcset="assets/gladiator-arena.webp" />
+                <img
+                  src="assets/gladiator-arena.jpg"
+                  width="1200"
+                  height="793"
+                  alt="Gladiator Chads 3D arena from above during Dawnbringer's turn"
+                />
+              </picture>
+            </figure>
+            <figure>
+              <picture>
+                <source type="image/webp" srcset="assets/gladiator-turn-camera.webp" />
+                <img
+                  src="assets/gladiator-turn-camera.jpg"
+                  width="1200"
+                  height="555"
+                  alt="A real dice roll lands in the Gladiator Chads arena as Dreamreaper casts Fire Bolt"
+                />
+              </picture>
+            </figure>
+            <figure>
+              <picture>
+                <source type="image/webp" srcset="assets/gladiator-ko.webp" />
+                <img
+                  src="assets/gladiator-ko.jpg"
+                  width="1200"
+                  height="555"
+                  alt="A knockout in the Gladiator Chads arena, with the attack total added up"
+                />
+              </picture>
+            </figure>
           </div>
           <div class="body">
-            <span class="status design">In design</span>
+            <span class="status design">Early prototype</span>
             <h3 style="margin-top:10px">Gladiator Chads</h3>
-            <p class="blurb" style="margin-top:8px">Turn-based arena tactics. Run a gladiator school, train a squad of three, and win the crowd.</p>
-            <p class="caption">Paper prototyping with D&amp;D minis, terrain, and a homemade Colosseum.</p>
-            <p class="hook" style="margin-top:10px">Build a school. Train your gladiators. Win the crowd.</p>
+            <p class="blurb" style="margin-top:8px">Gladiator Chads is an early Gaming Chads prototype: turn-based gladiator duels in a 3D arena, where every attack is a real dice roll you watch land on the sand.</p>
+            <p class="caption">Early prototype, placeholder art.</p>
           </div>
         </article>
 
-        <div class="teasers">
-          <article class="teaser">
-            <span class="lock">LOCKED</span>
-            <span class="status app">D&amp;D app</span>
+        <article class="game-card wide">
+          <div class="phone-gallery" role="region" aria-label="Player Advantage screenshots">
+            <figure>
+              <div class="phone-frame">
+                <picture>
+                  <source type="image/webp" srcset="assets/player-advantage-combat.webp" />
+                  <img
+                    src="assets/player-advantage-combat.jpg"
+                    width="800"
+                    height="1731"
+                    alt="Player Advantage Combat tab on iPhone, showing Dawnbringer's attacks"
+                  />
+                </picture>
+              </div>
+              <figcaption>Combat</figcaption>
+            </figure>
+            <figure>
+              <div class="phone-frame">
+                <picture>
+                  <source type="image/webp" srcset="assets/player-advantage-checks.webp" />
+                  <img
+                    src="assets/player-advantage-checks.jpg"
+                    width="800"
+                    height="1731"
+                    alt="Player Advantage Checks tab on iPhone, showing saving throws and skills"
+                  />
+                </picture>
+              </div>
+              <figcaption>Checks</figcaption>
+            </figure>
+            <figure>
+              <div class="phone-frame">
+                <picture>
+                  <source type="image/webp" srcset="assets/player-advantage-critical-hit.webp" />
+                  <img
+                    src="assets/player-advantage-critical-hit.jpg"
+                    width="750"
+                    height="1089"
+                    alt="A critical hit in Player Advantage, with 3D dice and every bonus added up"
+                  />
+                </picture>
+              </div>
+              <figcaption>Critical hit</figcaption>
+            </figure>
+          </div>
+          <div class="body">
+            <span class="status app">Alpha playtest</span>
             <h3 style="margin-top:10px">Player Advantage</h3>
-            <p>A companion app for tabletop campaigns. Silhouette mode for now while we shape the build.</p>
-          </article>
-          <article class="teaser">
-            <span class="lock">COMING LATER</span>
-            <span class="status soon">Tease</span>
-            <h3 style="margin-top:10px">Rift Chads</h3>
-            <p>Run an adventuring guild holding the line as invaders pour through the rifts.</p>
-          </article>
-        </div>
+            <p class="blurb" style="margin-top:8px">Player Advantage puts your tabletop character on your phone: tap a move and real 3D dice roll, with every bonus added up for you.</p>
+            <p class="caption">iPhone app, now in alpha playtest.</p>
+          </div>
+        </article>
       </div>
     </section>
 
