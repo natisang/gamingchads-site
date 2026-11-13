@@ -25,857 +25,266 @@
   <link rel="apple-touch-icon" href="assets/favicon-180.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Press+Start+2P&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Press+Start+2P&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="preload" as="image" href="assets/hero-bg.jpg" />
   <style>
     :root {
-      --bg: #0b0d12;
-      --bg2: #141821;
-      --card: #1c2230;
-      --card-hi: #252c3d;
-      --ink: #f4f1ea;
-      --muted: #9b968c;
-      --accent: #e8a54b;
-      --accent-2: #c47a2e;
-      --stone: #c9b08a;
-      --line: #2f3648;
-      --green: #5ddea0;
-      --blue: #7eb0ff;
-      --pink: #ff7eb6;
-      --shadow: 0 18px 50px rgba(0,0,0,.45);
-      --radius: 18px;
-      --font: "Space Grotesk", system-ui, sans-serif;
-      --display: "Bungee", "Space Grotesk", sans-serif;
-      --pixel: "Press Start 2P", monospace;
+      --bg:#0b0d12; --bg2:#10131a; --card:#171b25; --ink:#f4f1ea; --muted:#a39d91;
+      --accent:#e8a54b; --accent-2:#c47a2e; --stone:#c9b08a; --line:#2a3040;
+      --green:#5ddea0; --blue:#7eb0ff; --red:#ff6b5e;
+      --font:"Space Grotesk",system-ui,sans-serif; --display:"Anton","Impact",sans-serif; --pixel:"Press Start 2P",monospace;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: var(--font);
-      background: var(--bg);
-      color: var(--ink);
-      line-height: 1.5;
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-    img { max-width: 100%; display: block; }
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { color: #ffc56e; }
-    .wrap {
-      width: min(1120px, calc(100% - 32px));
-      margin: 0 auto;
-    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:var(--font);background:var(--bg);color:var(--ink);line-height:1.55;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+    img{max-width:100%;height:auto;display:block}
+    a{color:var(--accent);text-decoration:none}
+    .wrap{width:min(1180px,calc(100% - 40px));margin:0 auto}
+    h1,h2,h3{font-family:var(--display);font-weight:400;text-transform:uppercase;letter-spacing:.01em;line-height:.98}
+    .kicker{font-family:var(--pixel);font-size:.58rem;color:var(--accent);letter-spacing:.1em;text-transform:uppercase}
 
-    /* NAV */
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 40;
-      backdrop-filter: blur(14px);
-      background: rgba(11,13,18,.78);
-      border-bottom: 1px solid rgba(232,165,75,.15);
-    }
-    .topbar-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 12px 0;
-    }
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: var(--ink);
-      font-family: var(--display);
-      font-size: 0.95rem;
-      letter-spacing: 0.02em;
-    }
-    .brand img {
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
-    }
-    .nav-links {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-    }
-    .nav-links a.ghost {
-      color: var(--muted);
-      font-weight: 600;
-      font-size: 0.92rem;
-      padding: 8px 10px;
-    }
-    .nav-links a.ghost:hover { color: var(--ink); }
+    /* nav */
+    .topbar{position:fixed;inset:0 0 auto 0;z-index:50;transition:background .3s,border-color .3s,backdrop-filter .3s;border-bottom:1px solid transparent}
+    .topbar.solid{background:rgba(11,13,18,.82);backdrop-filter:blur(14px);border-color:rgba(232,165,75,.16)}
+    .topbar-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0}
+    .brand{display:flex;align-items:center;gap:10px;color:var(--ink);font-family:var(--display);font-size:1.15rem;letter-spacing:.04em;text-transform:uppercase}
+    .brand img{width:38px;height:38px;border-radius:10px}
+    .nav-links{display:flex;gap:6px;align-items:center}
+    .nav-links a.ghost{color:var(--muted);font-weight:600;font-size:.92rem;padding:8px 12px;transition:color .15s}
+    .nav-links a.ghost:hover{color:var(--ink)}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:14px 22px;border-radius:12px;font-weight:700;font-size:.98rem;border:1px solid transparent;transition:transform .18s,box-shadow .18s,border-color .18s,color .18s;cursor:pointer}
+    .btn-primary{background:linear-gradient(135deg,#f4b85e,var(--accent-2));color:#1a1208;box-shadow:0 10px 30px rgba(232,165,75,.3)}
+    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 38px rgba(232,165,75,.45)}
+    .btn-ghost{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.16);color:var(--ink);backdrop-filter:blur(6px)}
+    .btn-ghost:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+    .btn-sm{padding:10px 16px;font-size:.9rem;border-radius:10px}
+    .play{width:0;height:0;border-left:11px solid currentColor;border-top:7px solid transparent;border-bottom:7px solid transparent}
 
-    /* BUTTONS */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 12px 18px;
-      border-radius: 999px;
-      font-weight: 700;
-      font-size: 0.95rem;
-      border: 1px solid transparent;
-      transition: transform .18s ease, box-shadow .18s ease, background .18s ease, border-color .18s ease;
-      cursor: pointer;
-      text-decoration: none;
-    }
-    .btn:hover { text-decoration: none; }
-    .btn-primary {
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      color: #1a1208;
-      box-shadow: 0 8px 24px rgba(232,165,75,.28);
-    }
-    .btn-primary:hover {
-      color: #1a1208;
-      transform: translateY(-2px);
-      box-shadow: 0 12px 28px rgba(232,165,75,.4);
-    }
-    .btn-ghost {
-      background: rgba(255,255,255,.04);
-      border-color: var(--line);
-      color: var(--ink);
-    }
-    .btn-ghost:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      transform: translateY(-2px);
-    }
+    /* hero */
+    .hero{position:relative;min-height:min(100svh,1040px);display:grid;place-items:center;text-align:center;padding:110px 0 70px;isolation:isolate;overflow:hidden}
+    .hero-bg{position:absolute;inset:0;z-index:-2;background:var(--bg) url(assets/hero-bg.jpg) center top/cover no-repeat}
+    .hero::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:
+      linear-gradient(rgba(232,165,75,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(232,165,75,.045) 1px,transparent 1px);
+      background-size:56px 56px;mask-image:radial-gradient(ellipse 60% 55% at 50% 40%,#000 10%,transparent 75%)}
+    .hero-heads{width:auto;height:min(30vh,300px);margin:0 auto -4px;filter:drop-shadow(0 30px 40px rgba(0,0,0,.6));animation:float 7s ease-in-out infinite}
+    @keyframes float{50%{transform:translateY(-12px)}}
+    .hero-word{width:auto;height:min(15vh,150px);margin:0 auto 22px;filter:drop-shadow(0 14px 22px rgba(0,0,0,.6))}
+    .hero h1{font-size:clamp(2.2rem,min(7vw,9.5vh),5.2rem);margin-bottom:18px;text-wrap:balance}
+    .hero h1 em{font-style:normal;background:linear-gradient(180deg,#ffd992,var(--accent) 55%,var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+    .hero-lead{font-size:clamp(1.05rem,2.2vw,1.3rem);color:#cfc8ba;max-width:44ch;margin:0 auto 30px}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+    .scroll-cue{position:absolute;bottom:22px;left:50%;translate:-50% 0;font-family:var(--pixel);font-size:.5rem;color:var(--muted);letter-spacing:.14em;animation:bob 1.8s ease-in-out infinite}
+    @keyframes bob{50%{transform:translateY(6px);opacity:.5}}
 
-    /* HERO */
-    .hero {
-      position: relative;
-      padding: 48px 0 64px;
-      isolation: isolate;
-      overflow: hidden;
-    }
-    .hero::before {
-      content: "";
-      position: absolute;
-      inset: -20% -10% auto -10%;
-      height: 120%;
-      background:
-        radial-gradient(ellipse 60% 50% at 50% 0%, rgba(232,165,75,.22), transparent 60%),
-        radial-gradient(ellipse 40% 40% at 85% 30%, rgba(196,122,46,.18), transparent 55%),
-        radial-gradient(ellipse 35% 35% at 10% 40%, rgba(126,176,255,.1), transparent 50%);
-      z-index: -2;
-      pointer-events: none;
-    }
-    .hero::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(232,165,75,.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(232,165,75,.05) 1px, transparent 1px);
-      background-size: 48px 48px;
-      mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 20%, transparent 75%);
-      z-index: -1;
-      pointer-events: none;
-      opacity: .55;
-    }
-    .hero-grid {
-      display: grid;
-      gap: 28px;
-      align-items: center;
-    }
-    @media (min-width: 860px) {
-      .hero-grid {
-        grid-template-columns: 1.05fr .95fr;
-        gap: 40px;
-      }
-    }
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-family: var(--pixel);
-      font-size: 0.58rem;
-      color: var(--accent);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 16px;
-    }
-    .eyebrow::before {
-      content: "";
-      width: 8px;
-      height: 8px;
-      background: var(--accent);
-      box-shadow: 0 0 12px var(--accent);
-      animation: blink 1.4s steps(2, end) infinite;
-    }
-    @keyframes blink {
-      50% { opacity: .25; }
-    }
-    .hero h1 {
-      font-family: var(--display);
-      font-size: clamp(2.2rem, 7vw, 4rem);
-      line-height: 1.05;
-      letter-spacing: 0.01em;
-      margin-bottom: 14px;
-      text-wrap: balance;
-    }
-    .hero h1 span {
-      background: linear-gradient(90deg, var(--accent), #ffd28a, var(--accent));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-    .hero-lead {
-      font-size: clamp(1.05rem, 2.4vw, 1.25rem);
-      color: var(--muted);
-      max-width: 34ch;
-      margin-bottom: 24px;
-    }
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 22px;
-    }
-    .hero-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-    .chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 7px 12px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.04);
-      border: 1px solid var(--line);
-      color: var(--muted);
-      font-size: 0.82rem;
-      font-weight: 600;
-    }
-    .chip strong { color: var(--ink); font-weight: 700; }
-    .hero-logo-wrap {
-      position: relative;
-      display: grid;
-      place-items: center;
-    }
-    .hero-logo-glow {
-      position: absolute;
-      width: 70%;
-      height: 70%;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(232,165,75,.35), transparent 70%);
-      filter: blur(18px);
-      z-index: 0;
-      animation: pulse 4s ease-in-out infinite;
-    }
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); opacity: .7; }
-      50% { transform: scale(1.08); opacity: 1; }
-    }
-    .hero-logo {
-      position: relative;
-      z-index: 1;
-      width: min(480px, 92%);
-      height: auto;
-      border-radius: 28px;
-      box-shadow: var(--shadow);
-      filter: drop-shadow(0 0 28px rgba(232,165,75,.2));
-    }
+    /* ticker */
+    .ticker{border-block:1px solid rgba(232,165,75,.22);background:#0e1016;overflow:hidden;padding:14px 0}
+    .ticker-track{display:flex;gap:28px;width:max-content;animation:tick 34s linear infinite;font-family:var(--display);text-transform:uppercase;font-size:1.25rem;letter-spacing:.06em;color:var(--stone);white-space:nowrap}
+    .ticker-track i{color:var(--accent);font-style:normal;font-size:.8rem;align-self:center}
+    @keyframes tick{to{transform:translateX(-50%)}}
 
-    /* SECTIONS */
-    section { padding: 28px 0 12px; }
-    .section-head {
-      display: flex;
-      align-items: end;
-      justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-    }
-    .section-kicker {
-      font-family: var(--pixel);
-      font-size: 0.55rem;
-      color: var(--accent);
-      letter-spacing: 0.1em;
-      margin-bottom: 8px;
-    }
-    h2 {
-      font-family: var(--display);
-      font-size: clamp(1.5rem, 4vw, 2.1rem);
-      line-height: 1.15;
-    }
+    /* games */
+    .games-head{padding:90px 0 10px;text-align:center}
+    .games-head h2{font-size:clamp(2.4rem,7vw,5rem);margin-top:14px}
+    .game{padding:70px 0;position:relative;scroll-margin-top:60px}
+    .game-num{font-family:var(--display);font-size:clamp(5rem,16vw,12rem);line-height:.8;color:transparent;-webkit-text-stroke:1px rgba(232,165,75,.28);position:absolute;top:36px;right:max(20px,calc(50% - 590px));pointer-events:none;user-select:none}
+    .status{display:inline-flex;align-items:center;gap:8px;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;padding:7px 12px;border-radius:999px}
+    .status::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor;box-shadow:0 0 10px currentColor}
+    .status.dev{background:#12301f;color:var(--green)} .status.proto{background:#3a2a12;color:var(--accent)} .status.app{background:#16233d;color:var(--blue)}
+    .game h3{font-size:clamp(2.2rem,6vw,4.4rem);margin:16px 0 14px}
+    .tagline{font-size:clamp(1.15rem,2.4vw,1.5rem);color:var(--ink);font-weight:600;margin-bottom:12px}
+    .blurb{color:var(--muted);font-size:1.05rem;max-width:52ch}
+    .points{list-style:none;margin:22px 0 28px;display:grid;gap:10px}
+    .points li{display:flex;gap:12px;align-items:baseline;font-weight:600}
+    .points li::before{content:"";flex:0 0 10px;height:10px;background:var(--accent);transform:rotate(45deg) translateY(-1px)}
+    .note{font-size:.84rem;color:var(--muted);margin-top:14px}
 
-    /* GAMES */
-    .showcase {
-      background:
-        linear-gradient(180deg, rgba(232,165,75,.08), transparent 40%),
-        var(--card);
-      border: 1px solid rgba(232,165,75,.28);
-      border-radius: calc(var(--radius) + 4px);
-      overflow: hidden;
-      box-shadow: var(--shadow);
-      margin-bottom: 18px;
-      transition: transform .2s ease, border-color .2s ease;
-    }
-    .showcase:hover {
-      transform: translateY(-3px);
-      border-color: rgba(232,165,75,.5);
-    }
-    .showcase-shot {
-      background: #050608;
-      border-bottom: 1px solid var(--line);
-    }
-    .showcase-shot img {
-      width: 100%;
-      height: auto;
-      image-rendering: pixelated;
-      image-rendering: crisp-edges;
-    }
-    .showcase-body {
-      padding: 20px 22px 24px;
-      display: grid;
-      gap: 10px;
-    }
-    .showcase-body .hook { margin-top: 6px; }
-    .status {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.7rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      padding: 5px 10px;
-      border-radius: 999px;
-      width: fit-content;
-    }
-    .status.dev { background: #163528; color: var(--green); }
-    .status.design { background: #3a2d16; color: var(--accent); }
-    .status.soon { background: #222836; color: var(--muted); }
-    .status.app { background: #1b2a44; color: var(--blue); }
-    .showcase h3, .game-card h3 {
-      font-family: var(--display);
-      font-size: clamp(1.15rem, 2.5vw, 1.55rem);
-      line-height: 1.2;
-    }
-    .blurb { color: var(--muted); font-size: 1rem; }
-    .hook {
-      font-family: var(--pixel);
-      font-size: 0.58rem;
-      line-height: 1.7;
-      color: var(--stone);
-    }
+    /* player advantage */
+    .pa{background:radial-gradient(ellipse 60% 70% at 78% 50%,rgba(126,176,255,.13),transparent 65%)}
+    .pa-grid{display:grid;gap:44px;align-items:center}
+    @media(min-width:900px){.pa-grid{grid-template-columns:1fr 1.05fr}}
+    .pa-stage{position:relative;height:min(640px,132vw);display:grid;place-items:center}
+    .phone{position:absolute;width:min(250px,44vw);border-radius:30px;overflow:hidden;border:6px solid #05060a;outline:1px solid #2c3345;box-shadow:0 40px 80px rgba(0,0,0,.6);background:#05060a}
+    .phone.side{opacity:.55;filter:saturate(.8)}
+    .phone.l{transform:translateX(-62%) rotate(-7deg) scale(.86)} .phone.r{transform:translateX(62%) rotate(7deg) scale(.86)}
+    .phone.main{position:relative;width:min(300px,56vw);aspect-ratio:9/16;z-index:2;border-color:#0a0c12;outline-color:rgba(232,165,75,.5);box-shadow:0 40px 90px rgba(0,0,0,.7),0 0 60px rgba(232,165,75,.18)}
+    .phone.main button{all:unset;cursor:pointer;display:block;width:100%;height:100%;position:relative}
+    .phone.main img,.phone.main iframe{width:100%;height:100%!important;object-fit:cover;border:0;display:block}
+    .bigplay{position:absolute;inset:auto 0 26px 0;margin:auto;width:fit-content;display:flex;gap:10px;align-items:center;background:rgba(11,13,18,.82);border:1px solid rgba(232,165,75,.6);color:var(--accent);padding:12px 18px;border-radius:999px;font-weight:700;font-size:.92rem;transition:transform .18s,background .18s}
+    .phone.main button:hover .bigplay{transform:scale(1.06);background:var(--accent);color:#1a1208}
 
-    .game-grid {
-      display: grid;
-      gap: 16px;
-      grid-template-columns: 1fr;
-    }
-    @media (min-width: 720px) {
-      .game-grid { grid-template-columns: 1.35fr 1fr; }
-    }
-    .game-card {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      overflow: hidden;
-      transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
-    }
-    .game-card:hover {
-      transform: translateY(-3px);
-      border-color: rgba(232,165,75,.35);
-      box-shadow: var(--shadow);
-    }
-    .game-card .body { padding: 16px 18px 18px; }
-    .photo-stack {
-      display: flex;
-      flex-direction: column;
-      background: #050608;
-    }
-    .photo-stack img {
-      width: 100%;
-      height: auto;
-      object-fit: contain;
-      background: #050608;
-      border-bottom: 1px solid var(--line);
-    }
-    .photo-stack img:last-child { border-bottom: none; }
-    .caption {
-      font-size: 0.82rem;
-      color: var(--muted);
-      margin-top: 8px;
-    }
+    /* gladiator */
+    .glad-hero{position:relative;height:min(78vh,720px);min-height:440px;overflow:hidden;display:flex;align-items:flex-end}
+    .glad-hero .slide{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.08);transition:opacity 1.4s ease,transform 7s linear}
+    .glad-hero .slide.on{opacity:1;transform:scale(1)}
+    .glad-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,13,18,.55) 0%,transparent 28%,rgba(11,13,18,.5) 62%,var(--bg) 100%)}
+    .glad-copy{position:relative;z-index:2;padding-bottom:36px;margin-inline:auto}
+    .glad-copy h3{font-size:clamp(2.8rem,9vw,7rem);margin:14px 0 12px;text-shadow:0 6px 30px rgba(0,0,0,.8)}
+    .glad-copy .blurb{color:#ddd5c6;max-width:56ch;text-shadow:0 2px 12px rgba(0,0,0,.9)}
+    .roster{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding:22px max(20px,calc(50% - 590px)) 26px;scrollbar-width:thin;scrollbar-color:var(--line) transparent}
+    .glad{flex:0 0 clamp(170px,19vw,220px);scroll-snap-align:start;position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--line);transition:transform .25s,border-color .25s,box-shadow .25s;background:#07080c}
+    .glad img{width:100%;height:auto;aspect-ratio:39/50;object-fit:cover;transition:transform .5s}
+    .glad:hover{transform:translateY(-8px);border-color:var(--accent);box-shadow:0 22px 44px rgba(0,0,0,.6),0 0 30px rgba(232,165,75,.2)}
+    .glad:hover img{transform:scale(1.07)}
+    .glad figcaption{position:absolute;inset:auto 0 0 0;padding:34px 12px 12px;background:linear-gradient(transparent,rgba(5,6,10,.95));font-family:var(--display);text-transform:uppercase;letter-spacing:.05em;font-size:1.15rem}
 
+    /* football */
+    .fc{background:radial-gradient(ellipse 60% 70% at 22% 50%,rgba(93,222,160,.10),transparent 65%)}
+    .fc-grid{display:grid;gap:40px;align-items:center}
+    @media(min-width:900px){.fc-grid{grid-template-columns:1.25fr 1fr}}
+    .screen{border-radius:18px;overflow:hidden;border:1px solid rgba(93,222,160,.35);box-shadow:0 40px 80px rgba(0,0,0,.55),0 0 50px rgba(93,222,160,.12);transform:perspective(1400px) rotateY(4deg);transition:transform .5s}
+    .screen:hover{transform:perspective(1400px) rotateY(0)}
+    .screen img{width:100%;image-rendering:pixelated}
+    .hook{font-family:var(--pixel);font-size:.62rem;line-height:1.9;color:var(--stone);margin-top:20px}
 
-    .game-card.wide { margin-bottom: 16px; }
-    .shot-grid {
-      display: grid;
-      gap: 2px;
-      background: #050608;
-    }
-    .shot-grid figure { margin: 0; background: #050608; }
-    .shot-grid img, .shot-grid picture, .shot-grid picture img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-    .shot-grid-gladiator {
-      grid-template-columns: 1fr 1fr;
-    }
-    .shot-grid-gladiator .shot-hero {
-      grid-column: 1 / -1;
-    }
-    @media (max-width: 560px) {
-      .shot-grid-gladiator { grid-template-columns: 1fr; }
-    }
+    /* who */
+    .who{padding:90px 0 40px;border-top:1px solid var(--line);margin-top:40px}
+    .who h2{font-size:clamp(2.2rem,6vw,4rem);margin:14px 0 30px}
+    .who-grid{display:grid;gap:16px}
+    @media(min-width:760px){.who-grid{grid-template-columns:1fr 1fr}}
+    .person{background:linear-gradient(160deg,#1e2432,var(--card));border:1px solid var(--line);border-radius:18px;padding:26px;display:flex;gap:18px;align-items:flex-start;transition:border-color .2s,transform .2s}
+    .person:hover{border-color:rgba(232,165,75,.45);transform:translateY(-3px)}
+    .person img,.person .initial{width:76px;height:76px;border-radius:50%;flex:0 0 76px;object-fit:cover;border:2px solid rgba(232,165,75,.5);background:#2a2114}
+    .person .initial{display:grid;place-items:center;color:var(--accent);font-family:var(--display);font-size:1.9rem}
+    .person h3{font-size:1.7rem;margin-bottom:6px}
+    .person .role{font-family:var(--pixel);font-size:.5rem;color:var(--accent);letter-spacing:.1em;margin-bottom:10px}
+    .person p{color:var(--muted)}
+    .bio{margin-top:18px;font-size:clamp(1.2rem,2.6vw,1.7rem);font-weight:600;line-height:1.35;max-width:36ch}
+    .bio span{color:var(--accent)}
 
-    .phone-gallery {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-      padding: 18px 18px 10px;
-      background:
-        radial-gradient(circle at 50% 0%, rgba(126,176,255,.12), transparent 55%),
-        #050608;
-      align-items: center;
-    }
-    .phone-gallery figure {
-      margin: 0;
-      background: #0a0c12;
-      border-radius: 18px;
-      overflow: hidden;
-      border: 1px solid var(--line);
-      display: flex;
-      flex-direction: column;
-      min-width: 0;
-    }
-    .phone-gallery .phone-frame {
-      background: #050608;
-    }
-    .phone-gallery picture, .phone-gallery img {
-      width: 100%;
-      height: auto;
-      display: block;
-      object-fit: contain;
-    }
-    .phone-gallery figcaption {
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--muted);
-      text-align: center;
-      padding: 8px 8px 10px;
-    }
-    @media (max-width: 700px) {
-      .phone-gallery {
-        display: flex;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        scroll-padding-inline: 16px;
-        gap: 12px;
-        padding: 16px;
-        align-items: stretch;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: thin;
-        scrollbar-color: var(--line) transparent;
-      }
-      .phone-gallery figure {
-        flex: 0 0 72%;
-        scroll-snap-align: start;
-      }
-      .phone-gallery .phone-frame {
-        flex: 1;
-        display: flex;
-        align-items: center;
-      }
-    }
+    /* footer */
+    footer{margin-top:60px;padding:60px 0 50px;border-top:1px solid var(--line);text-align:center;background:linear-gradient(180deg,transparent,rgba(232,165,75,.05))}
+    footer h2{font-size:clamp(2rem,6vw,3.6rem);margin-bottom:22px}
+    .socials{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;list-style:none;margin:26px 0 22px}
+    .socials a{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;background:var(--card);border:1px solid var(--line);border-radius:999px;color:var(--ink);font-size:.88rem;font-weight:600;transition:border-color .15s,color .15s,transform .15s}
+    .socials a:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+    .socials svg{width:15px;height:15px;fill:currentColor}
+    .made{color:var(--muted);font-size:.9rem;font-weight:600}
 
-    .teasers {
-      display: grid;
-      gap: 16px;
-      grid-template-columns: 1fr;
-      margin-top: 16px;
-    }
-    @media (min-width: 640px) {
-      .teasers { grid-template-columns: 1fr 1fr; }
-    }
-    .teaser {
-      position: relative;
-      min-height: 180px;
-      border-radius: var(--radius);
-      border: 1px dashed rgba(232,165,75,.35);
-      background:
-        radial-gradient(circle at 20% 20%, rgba(232,165,75,.12), transparent 45%),
-        radial-gradient(circle at 80% 80%, rgba(126,176,255,.08), transparent 40%),
-        repeating-linear-gradient(-45deg, #151922 0 12px, #12161e 12px 24px);
-      overflow: hidden;
-      padding: 22px;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      transition: transform .2s ease, border-color .2s ease;
-    }
-    .teaser:hover {
-      transform: translateY(-3px);
-      border-color: var(--accent);
-    }
-    .teaser::before {
-      content: "";
-      position: absolute;
-      inset: 18px;
-      border: 1px solid rgba(255,255,255,.05);
-      border-radius: 12px;
-      pointer-events: none;
-    }
-    .lock {
-      position: absolute;
-      top: 22px;
-      right: 22px;
-      font-family: var(--pixel);
-      font-size: 0.5rem;
-      color: var(--accent);
-      background: rgba(0,0,0,.45);
-      border: 1px solid rgba(232,165,75,.35);
-      padding: 8px 10px;
-      border-radius: 8px;
-    }
-    .teaser h3 {
-      font-family: var(--display);
-      font-size: 1.25rem;
-      margin-bottom: 6px;
-      position: relative;
-    }
-    .teaser p {
-      color: var(--muted);
-      font-size: 0.92rem;
-      position: relative;
-      max-width: 28ch;
-    }
-
-    /* WHO */
-    .who {
-      margin: 36px 0 8px;
-      padding: 28px 0 8px;
-      border-top: 1px solid var(--line);
-    }
-    .who-grid {
-      display: grid;
-      gap: 16px;
-    }
-    @media (min-width: 720px) {
-      .who-grid { grid-template-columns: 1fr 1fr; }
-    }
-    .person {
-      background: linear-gradient(160deg, var(--card-hi), var(--card));
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 20px;
-      display: flex;
-      gap: 16px;
-      align-items: flex-start;
-      transition: border-color .2s ease, transform .2s ease;
-    }
-    .person:hover {
-      border-color: rgba(232,165,75,.4);
-      transform: translateY(-2px);
-    }
-    .person img, .person .initial {
-      width: 72px;
-      height: 72px;
-      border-radius: 50%;
-      flex: 0 0 72px;
-      object-fit: cover;
-      border: 2px solid rgba(232,165,75,.45);
-      background: #2a2114;
-    }
-    .person .initial {
-      display: grid;
-      place-items: center;
-      color: var(--accent);
-      font-family: var(--display);
-      font-size: 1.6rem;
-    }
-    .person h3 {
-      font-family: var(--display);
-      font-size: 1.2rem;
-      margin-bottom: 4px;
-    }
-    .person p { color: var(--muted); font-size: 0.95rem; }
-    .bio-banner {
-      margin-top: 16px;
-      padding: 18px 20px;
-      border-radius: var(--radius);
-      background:
-        linear-gradient(90deg, rgba(232,165,75,.16), transparent 55%),
-        var(--card);
-      border: 1px solid var(--line);
-      border-left: 4px solid var(--accent);
-      color: var(--muted);
-      font-size: 0.98rem;
-    }
-
-    /* FOOTER */
-    footer {
-      margin-top: 48px;
-      padding: 28px 0 48px;
-      border-top: 1px solid var(--line);
-      text-align: center;
-    }
-    footer .place {
-      font-family: var(--display);
-      font-size: 1.05rem;
-      margin-bottom: 16px;
-    }
-    .socials {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      justify-content: center;
-      list-style: none;
-      margin-bottom: 16px;
-    }
-    .socials a {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 9px 13px;
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      color: var(--ink);
-      font-size: 0.86rem;
-      font-weight: 650;
-      transition: border-color .15s ease, color .15s ease, transform .15s ease;
-    }
-    .socials a:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      transform: translateY(-2px);
-      text-decoration: none;
-    }
-    .socials svg {
-      width: 15px;
-      height: 15px;
-      fill: currentColor;
-      flex: 0 0 15px;
-    }
-    .contact { margin-bottom: 10px; }
-    .made {
-      color: var(--muted);
-      font-size: 0.9rem;
-      font-weight: 600;
-    }
-
-    @media (max-width: 560px) {
-      .nav-links a.ghost { display: none; }
-      .brand span { display: none; }
-      .hero { padding-top: 28px; }
-      .hero-logo { width: min(340px, 92%); }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      *, *::before, *::after {
-        animation: none !important;
-        transition: none !important;
-      }
-    }
+    .reveal{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s ease}
+    .reveal.in{opacity:1;transform:none}
+    @media(max-width:620px){.nav-links a.ghost{display:none}.brand span{display:none}.game{padding:54px 0}.game-num{top:20px}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
   </style>
 </head>
 <body>
-  <header class="topbar">
+  <header class="topbar" id="topbar">
     <div class="wrap topbar-inner">
-      <a class="brand" href="#top">
-        <img src="assets/favicon-192.png" width="40" height="40" alt="" />
-        <span>Gaming Chads</span>
-      </a>
+      <a class="brand" href="#top"><img src="assets/favicon-192.png" width="38" height="38" alt="" /><span>Gaming Chads</span></a>
       <nav class="nav-links" aria-label="Primary">
         <a class="ghost" href="#games">Games</a>
         <a class="ghost" href="#who">Who we are</a>
-        <a class="btn btn-primary" href="https://discord.gg/txHxxJMUaR" rel="noopener" target="_blank">Join Discord</a>
+        <a class="btn btn-primary btn-sm" href="https://discord.gg/txHxxJMUaR" rel="noopener" target="_blank">Join Discord</a>
       </nav>
     </div>
   </header>
 
   <main id="top">
     <section class="hero">
-      <div class="wrap hero-grid">
-        <div>
-          <p class="eyebrow">Indie studio // Chiang Mai</p>
-          <h1>A father and son <span>gaming</span> company</h1>
-          <p class="hero-lead">We build arcade games and arena tactics together, with AI as our teammate and fun as the rule.</p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="https://discord.gg/txHxxJMUaR" rel="noopener" target="_blank">Join us on Discord</a>
-            <a class="btn btn-ghost" href="#games">See our games</a>
-          </div>
-          <div class="hero-meta">
-            <span class="chip"><strong>No pay-to-win.</strong> Ever.</span>
-            <span class="chip">Built in public</span>
-            <span class="chip">Father + son co-op</span>
-          </div>
-        </div>
-        <div class="hero-logo-wrap">
-          <div class="hero-logo-glow" aria-hidden="true"></div>
-          <img
-            class="hero-logo"
-            src="assets/logo-v4-512.png"
-            srcset="assets/logo-v4-256.png 256w, assets/logo-v4-512.png 512w, assets/gaming-chads-logo-v4.png 2000w"
-            sizes="(max-width: 860px) 70vw, 420px"
-            width="512"
-            height="512"
-            alt="Gaming Chads"
-          />
+      <div class="hero-bg" aria-hidden="true"></div>
+      <div class="wrap">
+        <picture><source type="image/webp" srcset="assets/moai-heads.webp" /><img class="hero-heads" src="assets/moai-heads.png" width="849" height="900" alt="" /></picture>
+        <picture><source type="image/webp" srcset="assets/wordmark.webp" /><img class="hero-word" src="assets/wordmark.png" width="596" height="360" alt="Gaming Chads" /></picture>
+        <h1>A father and son <em>gaming</em> company</h1>
+        <p class="hero-lead">We build arcade games and arena tactics together, with AI as our teammate and fun as the rule.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#player-advantage"><span class="play"></span>Watch the trailer</a>
+          <a class="btn btn-ghost" href="#games">See our games</a>
         </div>
       </div>
+      <span class="scroll-cue" aria-hidden="true">▼ SCROLL</span>
     </section>
 
-    <section id="games" aria-labelledby="games-heading">
-      <div class="wrap">
-        <div class="section-head">
-          <div>
-            <p class="section-kicker">Level select</p>
-            <h2 id="games-heading">Games in the works</h2>
-          </div>
-        </div>
+    <div class="ticker" aria-hidden="true"><div class="ticker-track"><span>Race for the Cup</span><i>◆</i> <span>Gladiator Chads</span><i>◆</i> <span>Player Advantage</span><i>◆</i> <span>No pay-to-win. Ever.</span><i>◆</i> <span>Built in public</span><i>◆</i> <span>Father + son co-op</span><i>◆</i> <span>Race for the Cup</span><i>◆</i> <span>Gladiator Chads</span><i>◆</i> <span>Player Advantage</span><i>◆</i> <span>No pay-to-win. Ever.</span><i>◆</i> <span>Built in public</span><i>◆</i> <span>Father + son co-op</span><i>◆</i></div></div>
 
-        <article class="showcase">
-          <div class="showcase-shot">
-            <img
-              src="assets/football-race-for-the-cup.jpg"
-              width="1376"
-              height="768"
-              alt="Race for the Cup: Football Chads gameplay prototype"
-            />
+    <section id="games" aria-labelledby="games-heading">
+      <div class="wrap games-head reveal">
+        <p class="kicker">Level select</p>
+        <h2 id="games-heading">Games in the works</h2>
+      </div>
+
+      <article class="game pa" id="player-advantage">
+        <span class="game-num" aria-hidden="true">01</span>
+        <div class="wrap pa-grid">
+          <div class="reveal">
+            <span class="status app">Alpha playtest</span>
+            <h3>Player Advantage</h3>
+            <p class="tagline">Nothing falls through the cracks.</p>
+            <p class="blurb">Player Advantage puts your tabletop character on your phone: tap a move and real 3D dice roll, with every bonus added up for you.</p>
+            <ul class="points">
+              <li>It adds it up for you.</li>
+              <li>It knows how many dice to roll.</li>
+              <li>Get the most out of your character.</li>
+            </ul>
+            <a class="btn btn-primary" href="https://youtube.com/shorts/BOIy-a_FmPs" rel="noopener" target="_blank" id="pa-watch"><span class="play"></span>Watch the trailer</a>
+            <p class="note">iPhone app, now in alpha playtest.</p>
           </div>
-          <div class="showcase-body">
-            <div>
-              <span class="status dev">In development</span>
-              <h3 style="margin-top:10px">Race for the Cup: Football Chads</h3>
-              <p class="blurb" style="margin-top:8px">World Cup energy in a retro arcade match. Every country on the pitch. Scout, train, and chase the cup.</p>
-              <p class="hook" style="margin-top:10px">The whole world. One cup. Every country can win.</p>
+          <div class="pa-stage reveal">
+            <div class="phone side l"><picture><source type="image/webp" srcset="assets/player-advantage-combat.webp" /><img loading="lazy" src="assets/player-advantage-combat.jpg" width="800" height="1731" alt="Player Advantage Combat tab" /></picture></div>
+            <div class="phone side r"><picture><source type="image/webp" srcset="assets/player-advantage-checks.webp" /><img loading="lazy" src="assets/player-advantage-checks.jpg" width="800" height="1731" alt="Player Advantage Checks tab" /></picture></div>
+            <div class="phone main" id="pa-video">
+              <button type="button" aria-label="Play the Player Advantage trailer">
+                <img loading="lazy" src="assets/player-advantage-poster.jpg" width="720" height="1280" alt="Player Advantage trailer" />
+                <span class="bigplay"><span class="play"></span>Play trailer · 1:06</span>
+              </button>
             </div>
           </div>
-        </article>
+        </div>
+      </article>
 
-        <article class="game-card wide">
-          <div class="shot-grid shot-grid-gladiator">
-            <figure class="shot-hero">
-              <picture>
-                <source type="image/webp" srcset="assets/gladiator-arena.webp" />
-                <img
-                  src="assets/gladiator-arena.jpg"
-                  width="1200"
-                  height="793"
-                  alt="Gladiator Chads 3D arena from above during Dawnbringer's turn"
-                />
-              </picture>
-            </figure>
-            <figure>
-              <picture>
-                <source type="image/webp" srcset="assets/gladiator-turn-camera.webp" />
-                <img
-                  src="assets/gladiator-turn-camera.jpg"
-                  width="1200"
-                  height="555"
-                  alt="A real dice roll lands in the Gladiator Chads arena as Dreamreaper casts Fire Bolt"
-                />
-              </picture>
-            </figure>
-            <figure>
-              <picture>
-                <source type="image/webp" srcset="assets/gladiator-ko.webp" />
-                <img
-                  src="assets/gladiator-ko.jpg"
-                  width="1200"
-                  height="555"
-                  alt="A knockout in the Gladiator Chads arena, with the attack total added up"
-                />
-              </picture>
-            </figure>
+      <article class="game" id="gladiator-chads" style="padding-top:20px">
+        <div class="glad-hero">
+            <img class="slide on" src="assets/gladiators/gravebreaker-wide.webp" alt="Gladiator Chads concept art" />
+            <img class="slide" loading="lazy" src="assets/gladiators/dreamreaper-wide.webp" alt="" />
+            <img class="slide" loading="lazy" src="assets/gladiators/rampage-wide.webp" alt="" />
+            <img class="slide" loading="lazy" src="assets/gladiators/the-void-wide.webp" alt="" />
+            <img class="slide" loading="lazy" src="assets/gladiators/headsman-wide.webp" alt="" />
+            <img class="slide" loading="lazy" src="assets/gladiators/monolith-wide.webp" alt="" />
+          <div class="wrap glad-copy reveal">
+            <span class="status proto">Early prototype</span>
+            <h3>Gladiator Chads</h3>
+            <p class="blurb">Turn-based gladiator duels in a 3D arena, where every attack is a real dice roll you watch land on the sand.</p>
           </div>
-          <div class="body">
-            <span class="status design">Early prototype</span>
-            <h3 style="margin-top:10px">Gladiator Chads</h3>
-            <p class="blurb" style="margin-top:8px">Gladiator Chads is an early Gaming Chads prototype: turn-based gladiator duels in a 3D arena, where every attack is a real dice roll you watch land on the sand.</p>
-            <p class="caption">Early prototype, placeholder art.</p>
-          </div>
-        </article>
+        </div>
+        <div class="roster" role="region" aria-label="Gladiator concept art">
+            <figure class="glad"><img loading="lazy" src="assets/gladiators/dawnbringer.webp" width="624" height="800" alt="Dawnbringer, gladiator concept art" /><figcaption>Dawnbringer</figcaption></figure>
+            <figure class="glad"><img loading="lazy" src="assets/gladiators/dreamreaper.webp" width="624" height="800" alt="Dreamreaper, gladiator concept art" /><figcaption>Dreamreaper</figcaption></figure>
+            <figure class="glad"><img loading="lazy" src="assets/gladiators/gravebreaker.webp" width="624" height="800" alt="Gravebreaker, gladiator concept art" /><figcaption>Gravebreaker</figcaption></figure>
+            <figure class="glad"><img loading="lazy" src="assets/gladiators/headsman.webp" width="624" height="800" alt="Headsman, gladiator concept art" /><figcaption>Headsman</figcaption></figure>
+            <figure class="glad"><img loading="lazy" src="assets/gladiators/monolith.webp" width="624" height="800" alt="Monolith, gladiator concept art" /><figcaption>Monolith</figcaption></figure>
+            <figure class="glad"><img loading="lazy" src="assets/gladiators/rampage.webp" width="624" height="800" alt="Rampage, gladiator concept art" /><figcaption>Rampage</figcaption></figure>
+            <figure class="glad"><img loading="lazy" src="assets/gladiators/stonepiercer.webp" width="624" height="800" alt="Stonepiercer, gladiator concept art" /><figcaption>Stonepiercer</figcaption></figure>
+            <figure class="glad"><img loading="lazy" src="assets/gladiators/the-void.webp" width="624" height="800" alt="The Void, gladiator concept art" /><figcaption>The Void</figcaption></figure>
+        </div>
+        <div class="wrap"><p class="note" style="margin-top:0">Concept art. The game is an early prototype.</p></div>
+      </article>
 
-        <article class="game-card wide">
-          <div class="phone-gallery" role="region" aria-label="Player Advantage screenshots">
-            <figure>
-              <div class="phone-frame">
-                <picture>
-                  <source type="image/webp" srcset="assets/player-advantage-combat.webp" />
-                  <img
-                    src="assets/player-advantage-combat.jpg"
-                    width="800"
-                    height="1731"
-                    alt="Player Advantage Combat tab on iPhone, showing Dawnbringer's attacks"
-                  />
-                </picture>
-              </div>
-              <figcaption>Combat</figcaption>
-            </figure>
-            <figure>
-              <div class="phone-frame">
-                <picture>
-                  <source type="image/webp" srcset="assets/player-advantage-checks.webp" />
-                  <img
-                    src="assets/player-advantage-checks.jpg"
-                    width="800"
-                    height="1731"
-                    alt="Player Advantage Checks tab on iPhone, showing saving throws and skills"
-                  />
-                </picture>
-              </div>
-              <figcaption>Checks</figcaption>
-            </figure>
-            <figure>
-              <div class="phone-frame">
-                <picture>
-                  <source type="image/webp" srcset="assets/player-advantage-critical-hit.webp" />
-                  <img
-                    src="assets/player-advantage-critical-hit.jpg"
-                    width="750"
-                    height="1089"
-                    alt="A critical hit in Player Advantage, with 3D dice and every bonus added up"
-                  />
-                </picture>
-              </div>
-              <figcaption>Critical hit</figcaption>
-            </figure>
+      <article class="game fc" id="race-for-the-cup">
+        <span class="game-num" aria-hidden="true">03</span>
+        <div class="wrap fc-grid">
+          <div class="screen reveal"><img loading="lazy" src="assets/football-race-for-the-cup.jpg" width="1376" height="768" alt="Race for the Cup: Football Chads gameplay prototype" /></div>
+          <div class="reveal">
+            <span class="status dev">In development</span>
+            <h3>Race for the Cup: Football Chads</h3>
+            <p class="blurb">World Cup energy in a retro arcade match. Every country on the pitch. Scout, train, and chase the cup.</p>
+            <p class="hook">The whole world. One cup. Every country can win.</p>
           </div>
-          <div class="body">
-            <span class="status app">Alpha playtest</span>
-            <h3 style="margin-top:10px">Player Advantage</h3>
-            <p class="blurb" style="margin-top:8px">Player Advantage puts your tabletop character on your phone: tap a move and real 3D dice roll, with every bonus added up for you.</p>
-            <p class="caption">iPhone app, now in alpha playtest.</p>
-          </div>
-        </article>
-      </div>
+        </div>
+      </article>
     </section>
 
     <section class="who" id="who" aria-labelledby="who-heading">
       <div class="wrap">
-        <div class="section-head">
-          <div>
-            <p class="section-kicker">Player 1 + Player 2</p>
-            <h2 id="who-heading">Who we are</h2>
-          </div>
-        </div>
+        <p class="kicker reveal">Player 1 + Player 2</p>
+        <h2 id="who-heading" class="reveal">Who we are</h2>
         <div class="who-grid">
-          <article class="person">
-            <img src="assets/avatar-v4-112.png" width="72" height="72" alt="" />
+          <article class="person reveal">
+            <img src="assets/avatar-v4-112.png" width="76" height="76" alt="" />
             <div>
-              <h3>My son</h3>
-              <p>Eight years old and already turning ideas into real games with AI tools. Co-founder energy. Avatar only.</p>
+              <h3>Newton</h3>
+              <p>Eight years old and already turning ideas into real games with AI tools. Co-founder energy.</p>
             </div>
           </article>
-          <article class="person">
+          <article class="person reveal">
             <div class="initial" aria-label="Nati">N</div>
             <div>
               <h3>Nati</h3>
@@ -883,14 +292,15 @@
             </div>
           </article>
         </div>
-        <p class="bio-banner">A dad and his son making games side by side. The son dreams up the ideas. Dad produces. AI helps them build. Every game is shared in public through our channels.</p>
+        <p class="bio reveal">A dad and his son making games side by side. <span>The son dreams up the ideas. Dad produces. AI helps them build.</span> Every game is shared in public through our channels.</p>
       </div>
     </section>
   </main>
 
   <footer>
     <div class="wrap">
-      <p class="place">Follow Gaming Chads</p>
+      <h2>Follow Gaming Chads</h2>
+      <a class="btn btn-primary" href="https://discord.gg/txHxxJMUaR" rel="noopener" target="_blank">Join us on Discord</a>
       <ul class="socials">
         <li>
           <a href="https://www.youtube.com/@gamingchadshq" rel="noopener" target="_blank">
@@ -944,5 +354,18 @@
       <p class="made">Made in Chiang Mai</p>
     </div>
   </footer>
+
+  <script>
+    const tb=document.getElementById('topbar');
+    const onScroll=()=>tb.classList.toggle('solid',scrollY>40); onScroll(); addEventListener('scroll',onScroll,{passive:true});
+    const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+    const slides=[...document.querySelectorAll('.glad-hero .slide')]; let si=0;
+    if(slides.length>1&&!matchMedia('(prefers-reduced-motion: reduce)').matches) setInterval(()=>{slides[si].classList.remove('on');si=(si+1)%slides.length;slides[si].classList.add('on')},5200);
+    const pv=document.getElementById('pa-video');
+    const playPA=e=>{e&&e.preventDefault();pv.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/BOIy-a_FmPs?autoplay=1&rel=0&playsinline=1" title="Player Advantage trailer" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';pv.scrollIntoView({behavior:'smooth',block:'center'})};
+    pv.querySelector('button').addEventListener('click',playPA);
+    document.getElementById('pa-watch').addEventListener('click',playPA);
+  </script>
 </body>
 </html>
