@@ -112,6 +112,17 @@
     .bigplay{position:absolute;inset:auto 0 26px 0;margin:auto;width:fit-content;display:flex;gap:10px;align-items:center;background:rgba(11,13,18,.82);border:1px solid rgba(232,165,75,.6);color:var(--accent);padding:12px 18px;border-radius:999px;font-weight:700;font-size:.92rem;transition:transform .18s,background .18s}
     .phone.main button:hover .bigplay{transform:scale(1.06);background:var(--accent);color:#1a1208}
 
+    /* rebuilding from the ruins */
+    .rfr{background:radial-gradient(ellipse 60% 70% at 24% 50%,rgba(255,107,94,.10),transparent 65%)}
+    .rfr-grid{display:grid;gap:40px;align-items:center}
+    @media(min-width:900px){.rfr-grid{grid-template-columns:1.3fr 1fr}}
+    .tv{position:relative;aspect-ratio:16/9;border-radius:18px;overflow:hidden;border:1px solid rgba(255,107,94,.4);box-shadow:0 40px 80px rgba(0,0,0,.55),0 0 50px rgba(255,107,94,.14);background:#05060a}
+    .tv button{all:unset;cursor:pointer;display:block;width:100%;height:100%;position:relative}
+    .tv img,.tv iframe{width:100%;height:100%!important;object-fit:cover;border:0;display:block}
+    .tv .bigplay{inset:0;height:fit-content}
+    .tv button:hover .bigplay{transform:scale(1.06);background:var(--accent);color:#1a1208}
+    .status.kid{background:#3a1a16;color:var(--red)}
+
     /* gladiator */
     .glad-hero{position:relative;height:min(78vh,720px);min-height:440px;overflow:hidden;display:flex;align-items:flex-end}
     .glad-hero .slide{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.08);transition:opacity 1.4s ease,transform 7s linear}
@@ -194,7 +205,7 @@
       <span class="scroll-cue" aria-hidden="true">▼ SCROLL</span>
     </section>
 
-    <div class="ticker" aria-hidden="true"><div class="ticker-track"><span>Race for the Cup</span><i>◆</i> <span>Gladiator Chads</span><i>◆</i> <span>Player Advantage</span><i>◆</i> <span>No pay-to-win. Ever.</span><i>◆</i> <span>Built in public</span><i>◆</i> <span>Father + son co-op</span><i>◆</i> <span>Race for the Cup</span><i>◆</i> <span>Gladiator Chads</span><i>◆</i> <span>Player Advantage</span><i>◆</i> <span>No pay-to-win. Ever.</span><i>◆</i> <span>Built in public</span><i>◆</i> <span>Father + son co-op</span><i>◆</i></div></div>
+    <div class="ticker" aria-hidden="true"><div class="ticker-track"><span>Race for the Cup</span><i>◆</i> <span>Gladiator Chads</span><i>◆</i> <span>Player Advantage</span><i>◆</i> <span>Rebuilding from the Ruins</span><i>◆</i> <span>No pay-to-win. Ever.</span><i>◆</i> <span>Built in public</span><i>◆</i> <span>Father + son co-op</span><i>◆</i> <span>Race for the Cup</span><i>◆</i> <span>Gladiator Chads</span><i>◆</i> <span>Player Advantage</span><i>◆</i> <span>Rebuilding from the Ruins</span><i>◆</i> <span>No pay-to-win. Ever.</span><i>◆</i> <span>Built in public</span><i>◆</i> <span>Father + son co-op</span><i>◆</i></div></div>
 
     <section id="games" aria-labelledby="games-heading">
       <div class="wrap games-head reveal">
@@ -231,6 +242,25 @@
         </div>
       </article>
 
+      <article class="game rfr" id="rebuilding-from-the-ruins">
+        <span class="game-num" aria-hidden="true">02</span>
+        <div class="wrap rfr-grid">
+          <div class="tv reveal" id="rfr-video">
+            <button type="button" aria-label="Play the Rebuilding from the Ruins trailer">
+              <img loading="lazy" src="assets/rebuilding-from-the-ruins-poster.jpg" width="1280" height="720" alt="Rebuilding from the Ruins: a house on spider legs walks through the Whispering Woods" />
+              <span class="bigplay"><span class="play"></span>Play trailer · 0:50</span>
+            </button>
+          </div>
+          <div class="reveal">
+            <span class="status kid">In development</span>
+            <h3>Rebuilding from the Ruins</h3>
+            <p class="tagline">The game made by Newton in 24 hours.</p>
+            <p class="blurb">Newton is eight years old. He built this game by talking to AI, and filled it with dragons, zombies, foxes that fall out of trees, and polar bears looking to make you into a snack. All from his imagination.</p>
+            <p class="note"><a href="https://youtu.be/kUUPIOPthb0" rel="noopener" target="_blank">Watch the trailer on YouTube</a></p>
+          </div>
+        </div>
+      </article>
+
       <article class="game" id="gladiator-chads" style="padding-top:20px">
         <div class="glad-hero">
             <img class="slide on" src="assets/gladiators/gravebreaker-wide.webp" alt="Gladiator Chads concept art" />
@@ -259,7 +289,7 @@
       </article>
 
       <article class="game fc" id="race-for-the-cup">
-        <span class="game-num" aria-hidden="true">03</span>
+        <span class="game-num" aria-hidden="true">04</span>
         <div class="wrap fc-grid">
           <div class="screen reveal"><img loading="lazy" src="assets/football-race-for-the-cup.jpg" width="1376" height="768" alt="Race for the Cup: Football Chads gameplay prototype" /></div>
           <div class="reveal">
@@ -363,9 +393,10 @@
     const slides=[...document.querySelectorAll('.glad-hero .slide')]; let si=0;
     if(slides.length>1&&!matchMedia('(prefers-reduced-motion: reduce)').matches) setInterval(()=>{slides[si].classList.remove('on');si=(si+1)%slides.length;slides[si].classList.add('on')},5200);
     const pv=document.getElementById('pa-video');
-    const playPA=e=>{e&&e.preventDefault();pv.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/BOIy-a_FmPs?autoplay=1&rel=0&playsinline=1" title="Player Advantage trailer" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';pv.scrollIntoView({behavior:'smooth',block:'center'})};
+    const playPA=e=>{e&&e.preventDefault();pv.innerHTML='<iframe src="https://www.youtube.com/embed/BOIy-a_FmPs?autoplay=1&rel=0&playsinline=1" title="Player Advantage trailer" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>';pv.scrollIntoView({behavior:'smooth',block:'center'})};
     pv.querySelector('button').addEventListener('click',playPA);
-    document.getElementById('pa-watch').addEventListener('click',playPA);
+    const rv=document.getElementById('rfr-video');
+    rv.querySelector('button').addEventListener('click',()=>{rv.innerHTML='<iframe src="https://www.youtube.com/embed/kUUPIOPthb0?autoplay=1&rel=0&playsinline=1" title="Rebuilding from the Ruins trailer" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>'});
   </script>
 </body>
 </html>
